@@ -72,7 +72,7 @@ namespace systems
     public:
         /// @brief Funcion que exporta todos los mensajes hacia un archivo dentro del la ruta especificada
         /// @param path Ruta del archivo
-        static void exportfile(const systems::Url& path = systems::Url(__argv[0]));
+        static void exportfile(const systems::Url& path);
         /// @brief Funcion que muestra todos los logs por consola
         static void view();
         /// @brief Agrega un log al administrador para luego enviarlo a donde se desee

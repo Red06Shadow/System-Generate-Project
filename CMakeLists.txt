@@ -10,7 +10,9 @@ include_directories(include)
 project(SG-Projects)
 add_executable(SG-Projects 
 ${CMAKE_SOURCE_DIR}/main.cpp
-${CMAKE_SOURCE_DIR}/libs/script.cpp
+${CMAKE_SOURCE_DIR}/libs/global.cpp
+${CMAKE_SOURCE_DIR}/libs/parser.cpp
+${CMAKE_SOURCE_DIR}/libs/excecute.cpp
 ${CMAKE_SOURCE_DIR}/libs/commands.cpp
 )
 link_directories(${CMAKE_SOURCE_DIR}/libs)

@@ -203,14 +203,32 @@ namespace systems
             ifstream(const Url &url, bool binary);
             /// @brief Lee todos los caracetres de formato ASCII del archivo y los almacena en str
             /// @param str cadena de caracteres para str(?std::string&?)
-            /// @param _start punto de donde se empieca a leer
-            /// @param _end punto donde se detiene la lectura, por defecto -1 para leer archivo completo
-            void read(std::string& str, size_t _start = 0, size_t _end = -1ULL);
-            /// @brief Lee todos los caracetres de formato ASCII del archivo y los almacena en str
+            /// @param sources punto de donde se empieca a leer
+            /// @param end punto donde se detiene la lectura, por defecto -1 para leer archivo completo
+            void read(std::string &str, size_t sources = 0, size_t end = -1ULL);
+            /// @brief Lee todos los caracetres de formato UTF-8 del archivo y los almacena en str
             /// @param str cadena de caracteres para str(?std::wstring&?)
-            /// @param _start punto de donde se empieca a leer
-            /// @param _end punto donde se detiene la lectura, por defecto -1 para leer archivo completo
-            void read(std::wstring& str, size_t _start = 0, size_t _end = -1ULL);
+            /// @param sources punto de donde se empieca a leer
+            /// @param end punto donde se detiene la lectura, por defecto -1 para leer archivo completo
+            void read(std::wstring &str, size_t sources = 0, size_t end = -1ULL);
+            /// @brief Lee todos los caracetres de formato ASCII del archivo y los almacena en str hasta el caracter especificado
+            /// @param str cadena de caracteres para str(?std::string&?)
+            /// @param caracter_end caracter de tipo(?char?) que determina hasta donde se leera
+            void read(std::string& str, char caracter_end);
+             /// @brief Lee todos los caracetres de formato UTF-8 del archivo y los almacena en str hasta el caracter especificado
+            /// @param str cadena de caracteres para str(?std::string&?)
+            /// @param caracter_end caracter de tipo(?wchar_t?) que determina hasta donde se leera
+            void read(std::string &str, wchar_t caracter_end);
+            /// @brief Obtienes un valor de un tipo determinado por (?data?) siempre y cuando tenga un operador de lectura para ese tipo
+            /// @tparam data Tipo de dato a leer en el archivo
+            /// @return Devuelve el valor del dato leido
+            template <typename data>
+            data get()
+            {
+                data __data;
+                *this >> __data;
+                return __data;
+            }
             ////////////////////////////////////////////////////////////////////
             friend ifstream &operator>>(ifstream &is, char *&__str);
             friend ifstream &operator>>(ifstream &is, std::string &__str);
@@ -228,6 +246,7 @@ namespace systems
             friend ifstream &operator>>(ifstream &is, unsigned long long &__n);
             friend ifstream &operator>>(ifstream &is, float &__n);
             friend ifstream &operator>>(ifstream &is, double &__n);
+            friend std::ostream &operator<<(std::ostream &out, ifstream &is);
             ////////////////////////////////////////////////////////////////////
             friend class iofstream;
         };
@@ -248,18 +267,26 @@ namespace systems
             /// @param url path del archivo a iniciar flujo
             /// @param __mode indica el modo de operacion al abir el archivo(Solo se admitiran modos de lectura)
             ofstream(const Url &url, ios::base __mode);
-            /// @brief Escribe todo lo que este dentro de la cadena str en un apocision determinada por start
+            /// @brief Escribe todo lo que este dentro de la cadena str en un apocision determinada por sources
             /// @param str Cadena de caracteres de escritura(?std::string&?)
             /// @param strstart Pocision de donde se quiere leer la cadena
             /// @param strend Pocision de donde termina la lectura
-            /// @param start Posicion en el archivo de donde se empieza a escribir
-            void write(const std::string& str, size_t strstart = 0, size_t strend = -1ULL, size_t start = 0);
-            /// @brief Escribe todo lo que este dentro de la cadena str en un apocision determinada por start
+            /// @param sources Posicion en el archivo de donde se empieza a escribir
+            void write(const std::string &str, size_t strstart = 0, size_t strend = -1ULL, size_t sources = 0);
+            /// @brief Escribe todo lo que este dentro de la cadena str en un apocision determinada por sources
             /// @param str Cadena de caracteres de escritura(?std::wstring&?)
             /// @param strstart Pocision de donde se quiere leer la cadena
             /// @param strend Pocision de donde termina la lectura
-            /// @param start Posicion en el archivo de donde se empieza a escribir
-            void write(const std::wstring& str, size_t strstart = 0, size_t strend = -1ULL, size_t start = 0);
+            /// @param sources Posicion en el archivo de donde se empieza a escribir
+            void write(const std::wstring &str, size_t strstart = 0, size_t strend = -1ULL, size_t sources = 0);
+            /// @brief Envia un valor de un tipo determinado por (?data?) siempre y cuando tenga un operador de escritura para ese tipo
+            /// @tparam data Tipo de dato a leer en el archivo
+            /// @param __data Valor a enviar al fichero
+            template <typename data>
+            void get(const data& __data)
+            {
+                *this << __data;
+            }
             ////////////////////////////////////////////////////////////////////
             friend ofstream &operator<<(ofstream &os, const char *__str);
             friend ofstream &operator<<(ofstream &os, const std::string __str);
@@ -277,6 +304,8 @@ namespace systems
             friend ofstream &operator<<(ofstream &os, const unsigned long long __n);
             friend ofstream &operator<<(ofstream &os, const float __n);
             friend ofstream &operator<<(ofstream &os, const double __n);
+            friend ofstream &operator<<(ofstream &out, ifstream &is);
+            friend std::istream &operator>>(std::istream &in, ofstream &out);
             ////////////////////////////////////////////////////////////////////
             friend class iofstream;
         };

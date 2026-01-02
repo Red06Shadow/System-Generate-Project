@@ -1,8 +1,12 @@
-#include <script/script.hpp>
+#include <global/global.hpp>
+#include <excecute/excecute.hpp>
+#include <parser/parser.hpp>
+#include <stda/system/time/time.hpp>
+
 
 #ifndef COMMAND
 #define COMMAND
-class iteratorC
+class Argv
 {
 private:
     const char **__end;
@@ -10,33 +14,34 @@ private:
     const char **__ponit = nullptr;
 
 public:
-    iteratorC(const char *argv[], const size_t size) : __begin(argv), __ponit(argv), __end(argv + size) {}
+    Argv(const char *argv[], const size_t size) : __begin(argv), __ponit(argv), __end(argv + size) {}
     const char **get() { return __ponit; }
     void next() { __ponit++; }
     const char **end() { return __end; }
     const char **begin() { return __begin; }
 };
 
-typedef bool (*Handle2)(iteratorC &);
+typedef bool (*Handle)(Argv &);
 
 class Command
 {
 private:
-    static std::map<std::string, Handle2> __commnads_interns;
-    inline static systems::Url urld = filesystem::current_directory();
-    inline static systems::Url urls;
-    inline static const char *nameP = nullptr;
-    inline static bool sourcesacpt = false;
+    static std::map<std::string, Handle> __commnads_interns;
+    inline static bool sources_user = false;
+    inline static bool destine_user = false;
+    inline static bool name_user = false;
+
+    static bool version(Argv &iterator);
+    static bool create(Argv &iterator);
+    static bool help(Argv &iterator);
+    static bool destine(Argv &iterator);
+    static bool name(Argv &iterator);
+    static bool format(Argv &iterator);
+    static void is_all_ready();
+
 
 public:
-    static bool version(iteratorC &iterator);
-    static bool help(iteratorC &iterator);
-    static bool destine(iteratorC &iterator);
-    static bool name(iteratorC &iterator);
-    static bool format(iteratorC &iterator);
-    static void is_all_ready();
-    static void operation_active();
-    static void comands(const char* argv[], size_t size);
+    static bool excecute(const char* argv[], size_t size);
 };
 // "C:/Proyectos(Red06Shadow)/SG-Proyects/test/c++_projects_cmake.sgc"
 #endif

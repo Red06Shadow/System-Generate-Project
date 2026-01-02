@@ -1,6 +1,6 @@
 #include <stda/system/files/fstream/fstream.hpp>
 #include <stda/system/time/time.hpp>
-#include <stda/system/exception/exception.hpp>
+#include <stda/system/exceptions/exceptions.hpp>
 #include <shlobj.h>
 #include <thread>
 

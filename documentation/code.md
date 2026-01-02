@@ -19,14 +19,15 @@ funcion_3 : [
 ]
 end
 .nombre_de_etiqueta_1:
-...
+    ...
 Caracter nulo.nombre_de_etiqueta_2:
-...
+    ...
 
 ## Aclaraciones:
 1. Si no se desea agregar mas etiquetas, todo el codigo se leera hasta el final del archivo
 2. Si se agregan mas etiquetas deben ir delante un caracter nulo
-3. Todas las funciones dentro de [] estan con el mismo valor de retorno de la funcion concatenada al bloque
+3. Los textos entre etiquetas deben estar identados por al menos un caracter de espacio para funcionar correctamente, en caso contrario, emitira un error o generara etiquetas basura
+4. Todas las funciones dentro de [] estan con el mismo valor de retorno de la funcion concatenada al bloque
 
 # Funciones
 1. dir(cadena_de_caracteres): crea un tipo de direcion de path a partir de un string con ""

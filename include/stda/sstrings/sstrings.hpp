@@ -235,5 +235,10 @@ namespace sstring
     /// @return Devuleve -1 si no lo encuentra si lo envuentra devuleve la pocision
     size_t find_last_not_of(const wchar_t *str, bool (*cmp)(wchar_t), size_t position = size_t(-1));
     /////////////////////////////////////
+    /// @brief Busca si existe esa palabra dentro de la cadena sources
+    /// @param word Palabra que se desea buscar
+    /// @param sources Cadena donde se buscara la palabra
+    /// @return Devuleve -1 si no la encuentra, si la encuentra devuleve la pocision dada
+    size_t find_word(const std::string& word, const std::string& sources);
 } // namespace sstring
 #endif
