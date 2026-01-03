@@ -61,7 +61,7 @@ namespace systems
             static TimerFormat to_stringformatdate[4];
             static TimerFormat to_stringformatclock[4];
 
-            static u16 clockregulate12h(u16 horsformat24h);
+            static u16 clockregulate12h(u16 horsformat24h, bool& pm);
             static std::string clocklarge12(const time_point &__tallocator);
             static std::string clocklarge24(const time_point &__tallocator);
             static std::string clockshort12(const time_point &__tallocator);

@@ -13,11 +13,13 @@
 
 int main(int args, const char *argv[])
 {
-    installed_program = systems::Url(__argv[0]);
+    Argv iterator(argv, args);
+    installed_program = *iterator.get();
+    iterator.next();
     sources_proyect = filesystem::current_directory();
     try
     {
-        Command::excecute(argv, args);
+        Command::excecute(iterator);
     }
     catch (const systems::exception &e)
     {
@@ -30,7 +32,7 @@ int main(int args, const char *argv[])
         Excecute::error_cleaner();
         systems::log_manager::serialize(systems::logs(e, systems::logs::type::error));
         systems::log_manager::view();
-        systems::log_manager::exportfile(sources_proyect + "log.txt");
+        systems::log_manager::exportfile(installed_program + "log/log.txt");
     }
     return 0;
 }
